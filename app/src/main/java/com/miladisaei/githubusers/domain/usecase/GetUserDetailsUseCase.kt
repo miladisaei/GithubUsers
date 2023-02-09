@@ -8,7 +8,7 @@ class GetUserDetailsUseCase(
     private val userRepository: UserRepository
 ) {
 
-    suspend fun execute(id: Int): Resource<User> {
-        return userRepository.getUserDetails(id)
+    suspend fun execute(username: String): Resource<User> {
+        return userRepository.getUserDetails(username)
     }
 }

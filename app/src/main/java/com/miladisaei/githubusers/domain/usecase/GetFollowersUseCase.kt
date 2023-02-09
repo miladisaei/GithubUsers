@@ -8,7 +8,7 @@ class GetFollowersUseCase(
     private val userRepository: UserRepository
 ) {
 
-    suspend fun execute(id: Int): Resource<UserListResponse> {
-        return userRepository.getFollowersUser(id)
+    suspend fun execute(username: String): Resource<UserListResponse> {
+        return userRepository.getFollowersUser(username)
     }
 }
