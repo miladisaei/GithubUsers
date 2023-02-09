@@ -6,8 +6,11 @@ import com.miladisaei.githubusers.data.model.User
 import com.miladisaei.githubusers.data.model.UserListResponse
 import com.miladisaei.githubusers.data.repository.dataSource.UserRemoteDataSource
 import retrofit2.Response
+import javax.inject.Inject
 
-class UserRemoteDataSourceImpl(
+class UserRemoteDataSourceImpl
+@Inject
+constructor(
     private val userAPIService: UserAPIService
 ) : UserRemoteDataSource {
 

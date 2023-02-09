@@ -8,10 +8,15 @@ import com.miladisaei.githubusers.data.model.SearchResponse
 import com.miladisaei.githubusers.data.util.Resource
 import com.miladisaei.githubusers.domain.usecase.GetSearchedUsersUseCase
 import com.miladisaei.githubusers.util.CommonMethods
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel
+@Inject
+constructor(
     private val app: Application,
     private val getSearchedUsersUseCase: GetSearchedUsersUseCase
 ) : ViewModel() {

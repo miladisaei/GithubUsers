@@ -3,8 +3,11 @@ package com.miladisaei.githubusers.domain.usecase
 import com.miladisaei.githubusers.data.model.SearchResponse
 import com.miladisaei.githubusers.data.util.Resource
 import com.miladisaei.githubusers.domain.repository.UserRepository
+import javax.inject.Inject
 
-class GetSearchedUsersUseCase(
+class GetSearchedUsersUseCase
+@Inject
+constructor(
     private val userRepository: UserRepository
 ) {
 

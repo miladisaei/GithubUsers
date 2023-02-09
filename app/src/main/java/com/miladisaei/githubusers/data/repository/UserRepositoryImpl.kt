@@ -8,8 +8,11 @@ import com.miladisaei.githubusers.data.util.DataConverter
 import com.miladisaei.githubusers.data.util.Resource
 import com.miladisaei.githubusers.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class UserRepositoryImpl(
+class UserRepositoryImpl
+@Inject
+constructor(
     private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
 
