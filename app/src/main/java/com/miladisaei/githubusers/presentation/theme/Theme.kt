@@ -1,4 +1,4 @@
-package com.miladisaei.githubusers.presentation.ui.theme
+package com.miladisaei.githubusers.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

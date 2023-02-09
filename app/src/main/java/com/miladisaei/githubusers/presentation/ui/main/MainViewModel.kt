@@ -1,4 +1,4 @@
-package com.miladisaei.githubusers.presentation
+package com.miladisaei.githubusers.presentation.ui.main
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
