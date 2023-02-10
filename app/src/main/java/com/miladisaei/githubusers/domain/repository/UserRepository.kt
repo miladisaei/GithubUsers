@@ -12,10 +12,10 @@ interface UserRepository {
         searchQuery: String,
         page: Int,
         count: Int
-    ): Resource<SearchResponse>
-    suspend fun getUserDetails(username: String): Resource<User>
-    suspend fun getFollowersUser(username: String): Resource<UserListResponse>
-    suspend fun getFollowingUser(username: String): Resource<UserListResponse>
+    ): Flow<Resource<SearchResponse>>
+    suspend fun getUserDetails(username: String): Flow<Resource<User>>
+    suspend fun getFollowersUser(username: String): Flow<Resource<UserListResponse>>
+    suspend fun getFollowingUser(username: String): Flow<Resource<UserListResponse>>
     suspend fun addFavoriteUser(user: User)
     suspend fun deleteFavoriteUser(user: User)
     fun getFavoriteUsers(): Flow<List<User>>

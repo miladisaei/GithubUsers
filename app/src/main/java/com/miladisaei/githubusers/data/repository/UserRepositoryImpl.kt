@@ -8,6 +8,7 @@ import com.miladisaei.githubusers.data.util.DataConverter
 import com.miladisaei.githubusers.data.util.Resource
 import com.miladisaei.githubusers.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class UserRepositoryImpl
@@ -20,26 +21,46 @@ constructor(
         searchQuery: String,
         page: Int,
         count: Int
-    ): Resource<SearchResponse> {
-        return DataConverter.responseToResource(
-            userRemoteDataSource.getSearchedUser(
-                searchQuery = searchQuery,
-                page = page,
-                count = count
+    ): Flow<Resource<SearchResponse>> {
+        return flowOf(
+            DataConverter.responseToResource(
+                userRemoteDataSource.getSearchedUser(
+                    searchQuery = searchQuery,
+                    page = page,
+                    count = count
+                )
             )
         )
     }
 
-    override suspend fun getUserDetails(username: String): Resource<User> {
-        return DataConverter.responseToResource(userRemoteDataSource.getUserDetails(username))
+    override suspend fun getUserDetails(username: String): Flow<Resource<User>> {
+        return flowOf(
+            DataConverter.responseToResource(
+                userRemoteDataSource.getUserDetails(
+                    username
+                )
+            )
+        )
     }
 
-    override suspend fun getFollowersUser(username: String): Resource<UserListResponse> {
-        return DataConverter.responseToResource(userRemoteDataSource.getFollowersUser(username))
+    override suspend fun getFollowersUser(username: String): Flow<Resource<UserListResponse>> {
+        return flowOf(
+            DataConverter.responseToResource(
+                userRemoteDataSource.getFollowersUser(
+                    username
+                )
+            )
+        )
     }
 
-    override suspend fun getFollowingUser(username: String): Resource<UserListResponse> {
-        return DataConverter.responseToResource(userRemoteDataSource.getFollowingUser(username))
+    override suspend fun getFollowingUser(username: String): Flow<Resource<UserListResponse>> {
+        return flowOf(
+            DataConverter.responseToResource(
+                userRemoteDataSource.getFollowingUser(
+                    username
+                )
+            )
+        )
     }
 
     override suspend fun addFavoriteUser(user: User) {

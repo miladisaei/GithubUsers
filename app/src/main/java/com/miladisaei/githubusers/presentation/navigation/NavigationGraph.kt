@@ -1,6 +1,7 @@
 package com.miladisaei.githubusers.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -21,10 +22,12 @@ fun NavigationGraph(navController: NavHostController) {
         startDestination = Screen.Main.route
     ) {
 
-        composable(route = Screen.Main.route) { navBackStackEntry ->
-            val viewModel = hiltViewModel<MainViewModel>()
+        composable(route = Screen.Main.route) {
             MainScreen(
-                viewModel = viewModel
+                navController = navController,
+                onNavigateToDetailScreen = { username ->
+                    navController.navigate(route = Screen.Detail.route + "/${username}")
+                }
             )
         }
 
@@ -32,18 +35,13 @@ fun NavigationGraph(navController: NavHostController) {
             route = Screen.Detail.route + "/{username}",
             arguments = listOf(navArgument("username") { type = NavType.StringType })
         ) { navBackStackEntry ->
-            val viewModel = hiltViewModel<DetailViewModel>()
             DetailScreen(
-                username = navBackStackEntry.arguments?.getString("username"),
-                viewModel = viewModel
+                username = navBackStackEntry.arguments?.getString("username")
             )
         }
 
-        composable(route = Screen.Favorite.route) { navBackStackEntry ->
-            val viewModel = hiltViewModel<FavoriteViewModel>()
-            FavoriteScreen(
-                viewModel = viewModel
-            )
+        composable(route = Screen.Favorite.route) {
+            FavoriteScreen()
         }
     }
 }
