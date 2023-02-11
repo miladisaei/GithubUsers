@@ -21,7 +21,8 @@ constructor(
     private val getFollowersUseCase: GetFollowersUseCase,
     private val getFollowingUseCase: GetFollowingUseCase,
     private val addFavoriteUserUseCase: AddFavoriteUserUseCase,
-    private val deleteFavoriteUserUseCase: DeleteFavoriteUserUseCase
+    private val deleteFavoriteUserUseCase: DeleteFavoriteUserUseCase,
+    private val isExistUserInFavoritesUseCase: IsExistUserInFavoritesUseCase
 ) : ViewModel() {
 
     data class DataStateDetails(
@@ -42,6 +43,12 @@ constructor(
         val isLoading: Boolean = false
     )
 
+    data class DataStateFavorite(
+        val addedToFavorite: Boolean = false,
+        val deletedFromFavorite: Boolean = false,
+        val existInFavoriteList: Boolean = false
+    )
+
 
     private val _userState: MutableState<DataStateDetails> = mutableStateOf(DataStateDetails())
     val userState: State<DataStateDetails> = _userState
@@ -53,6 +60,10 @@ constructor(
     private val _followingState: MutableState<DataStateFollowing> =
         mutableStateOf(DataStateFollowing())
     val followingState: State<DataStateFollowing> = _followingState
+
+    private val _favoriteState: MutableState<DataStateFavorite> =
+        mutableStateOf(DataStateFavorite())
+    val favoriteState: State<DataStateFavorite> = _favoriteState
 
 
     fun getUserDetails(username: String) {
@@ -132,6 +143,49 @@ constructor(
                         )
                     }
                 }
+            }
+        }
+    }
+
+    fun toggleFavoriteUser() {
+        if (favoriteState.value.existInFavoriteList)
+            deleteUserFromFavorite()
+        else
+            addUserToFavorite()
+    }
+
+    private fun addUserToFavorite() {
+        userState.value.data?.let { user ->
+            viewModelScope.launch(Dispatchers.IO) {
+                addFavoriteUserUseCase.execute(user)
+                _favoriteState.value = favoriteState.value.copy(
+                    addedToFavorite = true,
+                    deletedFromFavorite = false,
+                    existInFavoriteList = true
+                )
+            }
+        }
+    }
+
+    private fun deleteUserFromFavorite() {
+        userState.value.data?.let { user ->
+            viewModelScope.launch(Dispatchers.IO) {
+                deleteFavoriteUserUseCase.execute(user)
+                _favoriteState.value = favoriteState.value.copy(
+                    addedToFavorite = false,
+                    deletedFromFavorite = true,
+                    existInFavoriteList = false
+                )
+            }
+        }
+    }
+
+    fun checkExistUserInFavoriteList(username: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            isExistUserInFavoritesUseCase.execute(username).collect {
+                _favoriteState.value = favoriteState.value.copy(
+                    existInFavoriteList = it
+                )
             }
         }
     }

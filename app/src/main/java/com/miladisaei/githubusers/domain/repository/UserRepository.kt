@@ -13,11 +13,12 @@ interface UserRepository {
         page: Int,
         count: Int
     ): Flow<Resource<SearchResponse>>
+
     suspend fun getUserDetails(username: String): Flow<Resource<User>>
     suspend fun getFollowersUser(username: String): Flow<Resource<UserListResponse>>
     suspend fun getFollowingUser(username: String): Flow<Resource<UserListResponse>>
     suspend fun addFavoriteUser(user: User)
     suspend fun deleteFavoriteUser(user: User)
     fun getFavoriteUsers(): Flow<List<User>>
-
+    suspend fun isExistInFavorites(username: String): Flow<Boolean>
 }

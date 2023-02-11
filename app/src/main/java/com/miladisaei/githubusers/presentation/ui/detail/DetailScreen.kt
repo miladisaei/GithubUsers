@@ -9,6 +9,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -28,6 +30,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.miladisaei.githubusers.presentation.components.*
+import com.miladisaei.githubusers.presentation.theme.Pink
 import kotlinx.coroutines.launch
 
 @Composable
@@ -38,9 +41,10 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel()
 ) {
 
-
-    if (viewModel.userState.value.data == null)
+    if (viewModel.userState.value.data == null) {
+        viewModel.checkExistUserInFavoriteList(username!!)
         viewModel.getUserDetails(username!!)
+    }
     if (viewModel.followersState.value.data == null)
         viewModel.getFollowers(username!!)
     if (viewModel.followingState.value.data == null)
@@ -53,6 +57,19 @@ fun DetailScreen(
                 navController = navController,
                 containBackButton = true
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    viewModel.toggleFavoriteUser()
+                },
+                backgroundColor = MaterialTheme.colors.onSecondary,
+                contentColor = if (viewModel.favoriteState.value.existInFavoriteList)
+                    Pink
+                else MaterialTheme.colors.onPrimary
+            ) {
+                Icon(Icons.Filled.Favorite, "addFavorite")
+            }
         }
     ) { paddingValues ->
         Surface(

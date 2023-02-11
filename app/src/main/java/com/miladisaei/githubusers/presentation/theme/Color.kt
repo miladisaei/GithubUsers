@@ -13,4 +13,5 @@ val WhiteBG = Color(0xFFFAFAFA)
 val Pink = Color(0xFFFC5085)
 val Gray240 = Color(0xFFF0F0F0)
 val Gray165 = Color(0xFFA5A5A5)
+val Moonstone = Color(0xFF3EC1C9)
 

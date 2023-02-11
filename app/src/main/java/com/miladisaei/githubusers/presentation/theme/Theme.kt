@@ -25,6 +25,8 @@ private val LightColorPalette = lightColors(
     background = WhiteBG,
     surface = WhiteBG,
     secondaryVariant = Gray240,
+    onSecondary = Moonstone
+
 
 
     /* Other default colors to override

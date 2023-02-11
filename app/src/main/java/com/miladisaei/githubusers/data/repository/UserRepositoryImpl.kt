@@ -3,6 +3,7 @@ package com.miladisaei.githubusers.data.repository
 import com.miladisaei.githubusers.data.model.SearchResponse
 import com.miladisaei.githubusers.data.model.User
 import com.miladisaei.githubusers.data.model.UserListResponse
+import com.miladisaei.githubusers.data.repository.dataSource.UserLocalDataSource
 import com.miladisaei.githubusers.data.repository.dataSource.UserRemoteDataSource
 import com.miladisaei.githubusers.data.util.DataConverter
 import com.miladisaei.githubusers.data.util.Resource
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class UserRepositoryImpl
 @Inject
 constructor(
-    private val userRemoteDataSource: UserRemoteDataSource
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val userLocalDataSource: UserLocalDataSource
 ) : UserRepository {
 
     override suspend fun getSearchedUsers(
@@ -64,14 +66,18 @@ constructor(
     }
 
     override suspend fun addFavoriteUser(user: User) {
-        TODO("Not yet implemented")
+        userLocalDataSource.addToFavoriteUsers(user)
     }
 
     override suspend fun deleteFavoriteUser(user: User) {
-        TODO("Not yet implemented")
+        userLocalDataSource.deleteFromFavoriteUsers(user)
     }
 
     override fun getFavoriteUsers(): Flow<List<User>> {
-        TODO("Not yet implemented")
+        return userLocalDataSource.getFavoriteUsers()
+    }
+
+    override suspend fun isExistInFavorites(username: String): Flow<Boolean> {
+        return userLocalDataSource.isExistInFavorites(username)
     }
 }

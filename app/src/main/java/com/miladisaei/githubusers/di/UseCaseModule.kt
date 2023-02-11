@@ -67,4 +67,12 @@ class UseCaseModule {
     ): GetFavoriteUsersUseCase {
         return GetFavoriteUsersUseCase(userRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideIsExistUserInFavoritesUseCase(
+        userRepository: UserRepository
+    ): IsExistUserInFavoritesUseCase {
+        return IsExistUserInFavoritesUseCase(userRepository)
+    }
 }

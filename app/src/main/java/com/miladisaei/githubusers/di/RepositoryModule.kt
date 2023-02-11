@@ -1,6 +1,7 @@
 package com.miladisaei.githubusers.di
 
 import com.miladisaei.githubusers.data.repository.UserRepositoryImpl
+import com.miladisaei.githubusers.data.repository.dataSource.UserLocalDataSource
 import com.miladisaei.githubusers.data.repository.dataSource.UserRemoteDataSource
 import com.miladisaei.githubusers.domain.repository.UserRepository
 import dagger.Module
@@ -16,8 +17,9 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideUserRepository(
-        userRemoteDataSource: UserRemoteDataSource
+        userRemoteDataSource: UserRemoteDataSource,
+        userLocalDataSource: UserLocalDataSource
     ): UserRepository {
-        return UserRepositoryImpl(userRemoteDataSource)
+        return UserRepositoryImpl(userRemoteDataSource, userLocalDataSource)
     }
 }
