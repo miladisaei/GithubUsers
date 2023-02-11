@@ -1,11 +1,13 @@
 package com.miladisaei.githubusers.data.api
 
+import com.miladisaei.githubusers.BuildConfig
 import com.miladisaei.githubusers.data.model.SearchResponse
 import com.miladisaei.githubusers.data.model.User
 import com.miladisaei.githubusers.data.model.UserListResponse
 import com.miladisaei.githubusers.util.USER_PAGINATION_PAGE_SIZE
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 

@@ -39,7 +39,7 @@ fun SearchView(searchQuery: MutableState<String>, onSearchClick: () -> Unit) {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(54.dp)
                 .imePadding(),
             value = searchQuery.value,
             onValueChange = {

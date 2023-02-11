@@ -26,7 +26,7 @@ fun AppBar(
         },
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary,
-        elevation = 2.dp,
+        elevation = 0.dp,
         navigationIcon = if (containBackButton) {
             {
                 IconButton(onClick = {

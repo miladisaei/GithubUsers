@@ -12,9 +12,12 @@ import coil.compose.AsyncImage
 import com.miladisaei.githubusers.data.model.User
 
 @Composable
-fun AvatarUser(user: User){
+fun AvatarUser(
+    modifier: Modifier = Modifier,
+    user: User
+) {
     AsyncImage(
-        modifier = Modifier
+        modifier = modifier
             .padding(10.dp)
             .clip(CircleShape)
             .aspectRatio(1f),

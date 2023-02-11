@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("String","APP_TOKEN", APP_TOKEN)
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -63,6 +65,7 @@ dependencies {
     def hilt_navigation_compos = "1.0.0"
     def datastore_version = "1.0.0"
     def coil_version = "2.2.2"
+    def accompanist_version = "0.28.0"
 
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_ktx"
@@ -87,8 +90,10 @@ dependencies {
 
     // Room DB
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -100,6 +105,10 @@ dependencies {
 
     // Image Loader
     implementation "io.coil-kt:coil-compose:$coil_version"
+
+    // Paging Compose
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
 
     // Test
     testImplementation 'junit:junit:4.13.2'
