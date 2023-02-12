@@ -21,6 +21,7 @@ import com.miladisaei.githubusers.presentation.components.*
 @Composable
 fun MainScreen(
     navController: NavHostController,
+    onNavigateToFavoriteScreen: () -> Unit,
     onNavigateToDetailScreen: (String) -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
@@ -29,7 +30,13 @@ fun MainScreen(
         topBar = {
             AppBar(
                 title = stringResource(R.string.main_screen_title),
-                navController = navController
+                navController = navController,
+                onFavoriteClick = {
+                    onNavigateToFavoriteScreen()
+                },
+                onSettingClick = {
+                    viewModel.toggleTheme()
+                }
             )
         }
     ) { paddingValues ->

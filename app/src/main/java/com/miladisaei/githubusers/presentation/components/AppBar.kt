@@ -15,7 +15,12 @@ import com.miladisaei.githubusers.presentation.theme.Pink
 fun AppBar(
     title: String,
     navController: NavHostController,
-    containBackButton: Boolean = false
+    containBackButton: Boolean = false,
+    containFavoriteButton: Boolean = true,
+    containSettingButton: Boolean = true,
+    containLanguageButton: Boolean = true,
+    onFavoriteClick: () -> Unit = {},
+    onSettingClick: () -> Unit = {}
 ) {
     TopAppBar(
         title = {
@@ -37,23 +42,33 @@ fun AppBar(
             }
         } else null,
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    Icons.Default.Favorite, "favorite",
-                    tint = Pink
-                )
+            if(containFavoriteButton) {
+                IconButton(onClick = {
+                    onFavoriteClick()
+                }) {
+                    Icon(
+                        Icons.Default.Favorite, "favorite",
+                        tint = Pink
+                    )
+                }
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    Icons.Default.Settings, "setting",
-                    tint = MaterialTheme.colors.onPrimary
-                )
+            if(containSettingButton) {
+                IconButton(onClick = {
+                    onSettingClick()
+                }) {
+                    Icon(
+                        Icons.Default.Settings, "setting",
+                        tint = MaterialTheme.colors.onPrimary
+                    )
+                }
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    Icons.Rounded.Language, "web",
-                    tint = MaterialTheme.colors.onPrimary
-                )
+            if(containLanguageButton) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        Icons.Rounded.Language, "language",
+                        tint = MaterialTheme.colors.onPrimary
+                    )
+                }
             }
         }
     )

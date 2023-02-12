@@ -19,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.miladisaei.githubusers.R
 import com.miladisaei.githubusers.presentation.components.*
 import com.miladisaei.githubusers.presentation.theme.Pink
 import kotlinx.coroutines.launch
@@ -37,14 +40,15 @@ import kotlinx.coroutines.launch
 fun DetailScreen(
     username: String?,
     navController: NavHostController,
+    onNavigateToFavoriteScreen: () -> Unit,
     onNavigateToDetailScreen: (String) -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
 
-    if (viewModel.userState.value.data == null) {
+    if (!viewModel.favoriteState.value.checkedExist)
         viewModel.checkExistUserInFavoriteList(username!!)
+    if (viewModel.userState.value.data == null)
         viewModel.getUserDetails(username!!)
-    }
     if (viewModel.followersState.value.data == null)
         viewModel.getFollowers(username!!)
     if (viewModel.followingState.value.data == null)
@@ -55,7 +59,13 @@ fun DetailScreen(
             AppBar(
                 title = username.toString(),
                 navController = navController,
-                containBackButton = true
+                containBackButton = true,
+                onFavoriteClick = {
+                    onNavigateToFavoriteScreen()
+                },
+                onSettingClick = {
+                    viewModel.toggleTheme()
+                }
             )
         },
         floatingActionButton = {
@@ -76,7 +86,7 @@ fun DetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            color = MaterialTheme.colors.surface
+            color = MaterialTheme.colors.primary
         ) {
             BoxWithConstraints {
                 val screenHeight = maxHeight
@@ -104,18 +114,29 @@ fun DetailScreen(
                             )
                             user.bio?.let {
                                 Text(
-                                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 5.dp),
+                                    modifier = Modifier.padding(10.dp, 0.dp, 10.dp, 5.dp),
                                     text = it,
                                     color = MaterialTheme.colors.onPrimary,
                                     style = MaterialTheme.typography.h6
                                 )
                             }
-                            StatisticsUser(user = user)
+                            StatisticsUser(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(90.dp)
+                                    .padding(15.dp, 5.dp, 15.dp, 15.dp)
+                                    .clip(shape = RoundedCornerShape(15.dp))
+                                    .background(MaterialTheme.colors.background),
+                                user = user
+                            )
                         }
                     }
 
 
-                    Column(modifier = Modifier.height(screenHeight)) {
+                    Column(
+                        modifier = Modifier
+                            .height(screenHeight)
+                    ) {
                         TabLayout(
                             scrollState = scrollState,
                             onNavigateToDetailScreen = onNavigateToDetailScreen,
@@ -140,30 +161,35 @@ fun TabLayout(
     followersState: State<DetailViewModel.DataStateFollowers>,
     followingState: State<DetailViewModel.DataStateFollowing>
 ) {
-    val tabData = listOf("FOLLOWERS", "FOLLOWING")
+    val tabData = listOf(
+        stringResource(R.string.followers_tab_title),
+        stringResource(R.string.following_tab_title)
+    )
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     TabRow(
-        selectedTabIndex = pagerState.currentPage,
+        selectedTabIndex = pagerState.currentPage
     ) {
         tabData.forEachIndexed { index, item ->
             val selected = (pagerState.currentPage == index)
-            val modifier = Modifier.clip(
-                RoundedCornerShape(
-                    topStart = 15.dp,
-                    topEnd = 15.dp,
-                    bottomStart = 0.dp,
-                    bottomEnd = 0.dp
+            val modifier = Modifier
+                .background(MaterialTheme.colors.primary)
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 15.dp,
+                        topEnd = 15.dp,
+                        bottomStart = 0.dp,
+                        bottomEnd = 0.dp
+                    )
                 )
-            )
             Tab(
                 modifier = if (selected)
-                    modifier.background(MaterialTheme.colors.background)
+                    modifier.background(MaterialTheme.colors.secondaryVariant)
                 else
                     modifier.background(MaterialTheme.colors.primary),
                 selected = selected,
-                selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = MaterialTheme.colors.background,
+                selectedContentColor = MaterialTheme.colors.onBackground,
+                unselectedContentColor = MaterialTheme.colors.onPrimary,
                 onClick = {
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(index)

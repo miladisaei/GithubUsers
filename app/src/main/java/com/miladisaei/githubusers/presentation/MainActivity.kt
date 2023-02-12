@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.jesus.soldiership.datastore.SettingsDataStore
 import com.miladisaei.githubusers.presentation.navigation.NavigationGraph
 import com.miladisaei.githubusers.presentation.navigation.Screen
 import com.miladisaei.githubusers.presentation.theme.AppTheme
@@ -32,19 +33,23 @@ import com.miladisaei.githubusers.presentation.ui.favorite.FavoriteViewModel
 import com.miladisaei.githubusers.presentation.ui.main.MainScreen
 import com.miladisaei.githubusers.presentation.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var settingsDataStore: SettingsDataStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
 
-            AppTheme {
+            AppTheme(darkTheme = settingsDataStore.isDark.value) {
                 NavigationGraph(
                     navController = navController
                 )
-
             }
         }
     }

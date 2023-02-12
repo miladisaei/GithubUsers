@@ -6,13 +6,16 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.jesus.soldiership.datastore.SettingsDataStore
 import com.miladisaei.githubusers.presentation.ui.detail.DetailScreen
 import com.miladisaei.githubusers.presentation.ui.favorite.FavoriteScreen
 import com.miladisaei.githubusers.presentation.ui.main.MainScreen
 import com.miladisaei.githubusers.presentation.ui.main.MainViewModel
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(
+    navController: NavHostController
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.Main.route
@@ -21,6 +24,9 @@ fun NavigationGraph(navController: NavHostController) {
         composable(route = Screen.Main.route) {
             MainScreen(
                 navController = navController,
+                onNavigateToFavoriteScreen = {
+                    navigateToFavoriteScreen(navController)
+                },
                 onNavigateToDetailScreen = { username ->
                     navigateToDetailScreen(navController, username)
                 }
@@ -33,6 +39,9 @@ fun NavigationGraph(navController: NavHostController) {
         ) { navBackStackEntry ->
             DetailScreen(
                 navController = navController,
+                onNavigateToFavoriteScreen = {
+                    navigateToFavoriteScreen(navController)
+                },
                 onNavigateToDetailScreen = { username ->
                     navigateToDetailScreen(navController, username)
                 },
@@ -41,7 +50,12 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.Favorite.route) {
-            FavoriteScreen()
+            FavoriteScreen(
+                navController = navController,
+                onNavigateToDetailScreen = { username ->
+                    navigateToDetailScreen(navController, username)
+                }
+            )
         }
     }
 }
@@ -51,4 +65,10 @@ fun navigateToDetailScreen(
     username: String
 ) {
     navController.navigate(route = Screen.Detail.route + "/${username}")
+}
+
+fun navigateToFavoriteScreen(
+    navController: NavHostController
+) {
+    navController.navigate(route = Screen.Favorite.route)
 }

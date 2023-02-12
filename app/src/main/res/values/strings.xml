@@ -3,4 +3,7 @@
     <string name="main_screen_title">GithubUsers</string>
     <string name="empty_list">No Data Available</string>
     <string name="searchbox_hint">Search Some User</string>
+    <string name="followers_tab_title">FOLLOWERS</string>
+    <string name="following_tab_title">FOLLOWING</string>
+    <string name="favorite_screen_title">Favorite User</string>
 </resources>

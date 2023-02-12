@@ -14,6 +14,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -66,6 +67,9 @@ fun SearchView(searchQuery: MutableState<String>, onSearchClick: () -> Unit) {
             colors = TextFieldDefaults.textFieldColors(
                 cursorColor = MaterialTheme.colors.primary,
                 backgroundColor = MaterialTheme.colors.secondaryVariant,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
             ),
             trailingIcon = {
                 if (isVisible.value) {

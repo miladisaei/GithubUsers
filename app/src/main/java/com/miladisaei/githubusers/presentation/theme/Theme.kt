@@ -1,5 +1,6 @@
 package com.miladisaei.githubusers.presentation.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -7,17 +8,8 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
+@SuppressLint("ConflictingOnColor")
 private val LightColorPalette = lightColors(
-//    primary = Purple500,
-//    primaryVariant = Purple700,
-//    secondary = Teal200
-
     primary = DarkMagentaPink,
     primaryVariant = Gray165,
     onPrimary = Color.White,
@@ -25,9 +17,8 @@ private val LightColorPalette = lightColors(
     background = WhiteBG,
     surface = WhiteBG,
     secondaryVariant = Gray240,
-    onSecondary = Moonstone
-
-
+    onSecondary = Moonstone,
+    onBackground = BlackBG
 
     /* Other default colors to override
     background = Color.White,
@@ -38,6 +29,23 @@ private val LightColorPalette = lightColors(
     onSurface = Color.Black,
     */
 )
+
+@SuppressLint("ConflictingOnColor")
+private val DarkColorPalette = darkColors(
+//    primary = Purple200,
+//    primaryVariant = Purple700,
+//    secondary = Teal200
+    primary = DarkMagentaPink,
+    primaryVariant = Gray100,
+    onPrimary = Color.White,
+    secondary = LightMagentaPink,
+    background = BlackBG,
+    surface = BlackBG,
+    secondaryVariant = Gray40,
+    onSecondary = Moonstone,
+    onBackground = WhiteBG
+)
+
 
 @Composable
 fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
