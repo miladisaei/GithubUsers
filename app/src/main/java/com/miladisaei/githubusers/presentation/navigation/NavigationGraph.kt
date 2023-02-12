@@ -6,11 +6,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.jesus.soldiership.datastore.SettingsDataStore
 import com.miladisaei.githubusers.presentation.ui.detail.DetailScreen
 import com.miladisaei.githubusers.presentation.ui.favorite.FavoriteScreen
 import com.miladisaei.githubusers.presentation.ui.main.MainScreen
-import com.miladisaei.githubusers.presentation.ui.main.MainViewModel
+import com.miladisaei.githubusers.presentation.ui.splash.SplashScreen
 
 @Composable
 fun NavigationGraph(
@@ -18,8 +17,16 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Main.route
+        startDestination = Screen.Splash.route
     ) {
+
+        composable(route = Screen.Splash.route) {
+            SplashScreen(
+                onNavigateToMainScreen = {
+                    navigateToMainScreen(navController)
+                }
+            )
+        }
 
         composable(route = Screen.Main.route) {
             MainScreen(
@@ -56,6 +63,16 @@ fun NavigationGraph(
                     navigateToDetailScreen(navController, username)
                 }
             )
+        }
+    }
+}
+
+fun navigateToMainScreen(
+    navController: NavHostController
+) {
+    navController.navigate(route = Screen.Main.route) {
+        popUpTo(Screen.Splash.route) {
+            inclusive = true
         }
     }
 }

@@ -17,4 +17,3 @@ val Gray40 = Color(0xFF282828)
 val Gray165 = Color(0xFFA5A5A5)
 val Gray100 = Color(0xFF646464)
 val Moonstone = Color(0xFF3EC1C9)
-

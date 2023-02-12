@@ -26,12 +26,12 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 30.sp
+        fontSize = 25.sp
     ),
     h2 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 25.sp
+        fontSize = 22.sp
     ),
     h3 = TextStyle(
         fontFamily = FontFamily.Default,
