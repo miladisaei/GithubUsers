@@ -6,7 +6,7 @@
 
 This project show the list of Users of Github using [Github REST API](https://docs.github.com/en/rest) Apis and show **details** of each user.
 
-The apk version of the application is available through [this link](https://github.com/miladisaei/GithubUsers/blob/master/GithubUsers.apk)
+The apk version of the application is available through [this link](https://1drv.ms/u/s!AradwCVm9utTi1LJu69N9LiTEJGk?e=l0xcYj)
 
 > **Notice:** To use this source code, you must first get your access token through your user panel in GitHub and place it in the APP_TOKEN
 > field in the gradle.properties file.
@@ -21,7 +21,7 @@ Below is a list of features I used:
 
 3. **Jetpack Compose:** Jetpack Compose streamlines Android UI development with a modern, reactive, and intuitive toolkit.
 
-4. **Jetpack Compose Navigation (Single activity, zero fragments):** Navigation Compose simplifies Android app navigation with a declarative and composable API.
+4. **Navigation Compose (Single activity, zero fragments):** Navigation Compose simplifies Android app navigation with a declarative and composable API.
 
 5. **Kotlin Coroutines + Flow:** Coroutines and Flow are tools for asynchronous programming in Kotlin that provide a lightweight, efficient, and structured way of managing concurrency and handling sequential and parallel streams of data.
 
@@ -38,6 +38,7 @@ Below is a list of features I used:
 
 # Architectures
 ![MVVM Clean Architecture](https://i.ibb.co/RzSR4nv/MVVM-Clean-Architecture.png)
+
 Model-View-ViewModel (MVVM) is a design pattern used in mobile app development that separates the presentation layer from the business logic and data model. This pattern enables a clean separation of responsibilities and facilitates easier testing and maintenance of the code. MVVM is commonly used with the Clean Architecture pattern, which is a modular approach to software design that emphasizes separation of concerns and promotes testability, maintainability, and scalability.
 
 
